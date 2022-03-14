@@ -97,7 +97,7 @@ public abstract class KitPlayerImpl implements KitPlayer {
 	@Override
 	public boolean hasKit(AbstractKit kit) {
 		AbstractKit copyCatKit = this.getKitAttribute(CopyCatKit.INSTANCE.getKitAttributeKey());
-		return copyCatKit != null && copyCatKit.equals(kit) || this.kits.contains(kit);
+		return copyCatKit != null && copyCatKit.equals(kit) || this.kits.contains(kit) || this.passive == kit;
 	}
 
 	@Override
