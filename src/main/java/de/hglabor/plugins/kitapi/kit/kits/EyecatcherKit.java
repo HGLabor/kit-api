@@ -9,6 +9,7 @@ import de.hglabor.plugins.kitapi.kit.settings.IntArg;
 import de.hglabor.plugins.kitapi.player.KitPlayer;
 import de.hglabor.plugins.kitapi.util.RotationUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -57,7 +58,13 @@ public class EyecatcherKit extends AbstractKit {
 			}
 			player.getNearbyEntities(radius, radius, radius).forEach(it -> {
 				RotationUtils.Rotation rotation = RotationUtils.getNeededRotations(player, it);
-				it.setRotation(rotation.getYaw(), rotation.getPitch());
+				if(it instanceof Player) {
+					Location location = it.getLocation().clone();
+					location.setYaw(rotation.getYaw());
+					location.setPitch(rotation.getPitch());
+				} else {
+					it.setRotation(rotation.getYaw(), rotation.getPitch());
+				}
 			});
 		}, 0, 1L);
 		kitPlayer.activateKitCooldown(INSTANCE);
