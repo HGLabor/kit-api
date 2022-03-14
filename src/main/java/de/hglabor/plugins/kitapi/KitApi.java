@@ -212,6 +212,7 @@ public final class KitApi {
 		kits.add(DarknessKit.INSTANCE);
 		kits.add(DashKit.INSTANCE);
 		kits.add(UltimatoKit.INSTANCE);
+		kits.add(EyecatcherKit.INSTANCE);
 
 		kits.add(NonePassive.INSTANCE);
 		kits.add(FastBreakPassive.INSTANCE);
