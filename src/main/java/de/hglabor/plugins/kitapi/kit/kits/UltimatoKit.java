@@ -29,7 +29,7 @@ public class UltimatoKit extends AbstractKit {
 	private final float cooldown;
 
 	private UltimatoKit() {
-		super("Ultimato", Material.EMERALD);
+		super("Ultimato", Material.RED_STAINED_GLASS_PANE);
 		this.radius = 10.0D;
 		this.strength = 2.3;
 		this.cooldown = 2.0F;
@@ -119,16 +119,19 @@ public class UltimatoKit extends AbstractKit {
 			if(!attackerKitPlayer.isValid() || !victimKitPlayer.isValid()) {
 				return true;
 			}
+			if(attackerKitPlayer.areKitsDisabled()) {
+				return true;
+			}
+			if(victim.getLocation().distance(center) >= radius+6) {
+				return true;
+			}
+			if(attacker.getLocation().distance(center) >= radius+6) {
+				return true;
+			}
 			for (Entity otherEntities : center.getNearbyEntities(radius, radius, radius)) {
 				if(otherEntities.getLocation().distance(center) >= radius) {
 					Vector direction = center.toVector().subtract(otherEntities.getLocation().toVector()).normalize();
 					if(otherEntities == victim || otherEntities == attacker) {
-						if(victim.getLocation().distance(center) >= radius+6) {
-							return true;
-						}
-						if(attacker.getLocation().distance(center) >= radius+6) {
-							return true;
-						}
 						otherEntities.setVelocity(direction.multiply(getStrength()));
 					} else {
 						otherEntities.setVelocity(direction.multiply(-(getStrength()/2)));
