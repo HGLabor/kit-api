@@ -39,16 +39,18 @@ public class SoupHealing implements Listener {
 			}
 			boolean hasPresouped = false;
 			ItemStack soup = player.getInventory().getItemInMainHand().clone();
+			if (player.getFoodLevel() < 20) {
+				player.setFoodLevel(player.getFoodLevel() + 6);
+				player.setSaturation(player.getSaturation() + 7);
+				player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
+			}
 			if (player.getHealth() < player.getMaxHealth()) {
 				if (player.getHealth() + amountToHeal > player.getMaxHealth()) {
 					hasPresouped = true;
 				}
 				player.setHealth(Math.min(player.getHealth() + amountToHeal, player.getMaxHealth()));
 				player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
-			} else if (player.getFoodLevel() < 20) {
-				player.setFoodLevel(player.getFoodLevel() + 6);
-				player.setSaturation(player.getSaturation() + 7);
-				player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
+			} else {
 				hasPresouped = true;
 			}
 			Bukkit.getPluginManager().callEvent(new PlayerAteSoupEvent(player, hasPresouped, soup));
