@@ -12,11 +12,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EyecatcherKit extends AbstractKit {
+public class EyecatcherKit extends AbstractKit implements Listener {
 
 	public static final EyecatcherKit INSTANCE = new EyecatcherKit();
 
@@ -44,7 +45,7 @@ public class EyecatcherKit extends AbstractKit {
 		AtomicInteger tick = new AtomicInteger(0);
 		Bukkit.getScheduler().runTaskTimer(KitApi.getInstance().getPlugin(), (task) -> {
 			tick.getAndIncrement();
-			if(tick.get() % duration == 0) {
+			if(tick.get() == duration*20) {
 				task.cancel();
 				return;
 			}
@@ -68,5 +69,10 @@ public class EyecatcherKit extends AbstractKit {
 			});
 		}, 0, 1L);
 		kitPlayer.activateKitCooldown(INSTANCE);
+	}
+
+	@Override
+	public float getCooldown() {
+		return cooldown;
 	}
 }
