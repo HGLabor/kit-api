@@ -3,8 +3,10 @@ package de.hglabor.plugins.kitapi.kit.kits;
 import de.hglabor.plugins.kitapi.KitApi;
 import de.hglabor.plugins.kitapi.kit.AbstractKit;
 import de.hglabor.plugins.kitapi.kit.events.KitEvent;
+import de.hglabor.plugins.kitapi.kit.kits.grappler.GrapplerKit;
 import de.hglabor.plugins.kitapi.kit.settings.DoubleArg;
 import de.hglabor.plugins.kitapi.player.KitPlayer;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
@@ -19,6 +21,14 @@ public class StomperKit extends AbstractKit {
 	protected StomperKit() {
 		super("Stomper", Material.DIAMOND_BOOTS);
 		radius = 3D;
+	}
+
+	@Override
+	public void onEnable(KitPlayer kitPlayer) {
+		if(kitPlayer.hasKit(GravityKit.INSTANCE) || kitPlayer.hasKit(GrapplerKit.INSTANCE) || kitPlayer.hasKit(GhostKit.INSTANCE) || kitPlayer.hasKit(ElytraKit.INSTANCE)) {
+			kitPlayer.disableKits(true);
+			kitPlayer.getBukkitPlayer().get().sendMessage(ChatColor.RED + "Unallowed kit combo, your kits got disabled!");
+		}
 	}
 
 	@KitEvent
