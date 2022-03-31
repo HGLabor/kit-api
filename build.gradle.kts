@@ -49,7 +49,7 @@ dependencies {
 }
 
 tasks {
-  build {
+  assemble {
     dependsOn(reobfJar)
   }
   withType<JavaCompile> {
@@ -71,27 +71,10 @@ java {
   withJavadocJar()
 }
 
-kotlin.runCatching {
-	signing {
-		sign(publishing.publications)
-	}
-}.onFailure {
-	println("Signing failed!")
+signing {
+	sign(publishing.publications)
 }
 
-
-publishing {
-  publications {
-    create<MavenPublication>("maven") {
-      this.groupId = project.group.toString()
-      this.artifactId = project.name.toLowerCase()
-      this.version = project.version.toString()
-      from(components["java"])
-    }
-  }
-}
-
-/*
 publishing {
     kotlin.runCatching {
       repositories {
@@ -109,9 +92,8 @@ publishing {
 
   publications {
     create<MavenPublication>(project.name) {
-      artifact(tasks.reobfJar)
-      artifact(tasks.named("javadocJar"))
-      artifact(tasks.named("sourcesJar"))
+		from(components["java"])
+		artifact(tasks.jar.get().outputs.files.single())
 
       this.groupId = project.group.toString()
       this.artifactId = project.name.toLowerCase()
@@ -125,6 +107,9 @@ publishing {
           developer {
             name.set("copyandexecute")
           }
+		  developer {
+			name.set("mooziii")
+		  }
         }
 
         licenses {
@@ -144,4 +129,4 @@ publishing {
     }
   }
 }
-*/
+
