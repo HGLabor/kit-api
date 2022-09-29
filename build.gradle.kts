@@ -4,6 +4,7 @@ val repo = "HGLabor/kit-api"
 
 group = "de.hglabor"
 version = "1.0.0"
+description = "api to build kits primarly used for hglabor.de"
 
 plugins {
     java
