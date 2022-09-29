@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.function.Function;
 
-@ApiStatus.Internal
 public final class KitApi {
     private static final Map<String, AbstractKit> KIT_REGISTRY = new HashMap<>();
     private static JavaPlugin plugin;
     private static Function<UUID, IKitPlayer> playerGetter;
 
+    @ApiStatus.Internal
     public static void init(Function<UUID, IKitPlayer> playerGetter, JavaPlugin plugin) {
         KitApi.plugin = plugin;
         KitApi.playerGetter = playerGetter;
