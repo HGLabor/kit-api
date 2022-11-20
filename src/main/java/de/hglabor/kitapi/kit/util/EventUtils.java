@@ -46,6 +46,11 @@ public final class EventUtils {
         return null;
     }
 
+    public static Player getDamaged(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player player) return player;
+        return null;
+    }
+
     public static Player getShooter(ProjectileHitEvent event) {
         if (event.getEntity().getShooter() instanceof Player player) return player;
         return null;

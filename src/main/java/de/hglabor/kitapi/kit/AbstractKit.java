@@ -13,6 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -121,6 +122,10 @@ public abstract class AbstractKit implements Listener {
             } catch (ClassCastException ignored) {
             }
         }, KitApi.getPlugin());
+    }
+
+    public final void onKitPlayerDamage(BiConsumer<EntityDamageEvent, IKitPlayer> consumer) {
+        onKitPlayerEvent(EntityDamageEvent.class, EventUtils::getDamaged, consumer, false, t -> true, DEFAULT_COOLDOWN_KEY, false, null);
     }
 
     public final void onKitPlayerGetsAttackedByEntity(BiConsumer<EntityDamageByEntityEvent, IKitPlayer> consumer) {
